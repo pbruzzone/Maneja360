@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Maneja360
+namespace Maneja360.Pages
 {
 
 

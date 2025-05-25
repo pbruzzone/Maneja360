@@ -3,7 +3,7 @@ using System.Web.UI.WebControls;
 using BE;
 using BLL;
 
-namespace Maneja360
+namespace Maneja360.Pages
 {
 	public partial class Bitacora : System.Web.UI.Page
 	{

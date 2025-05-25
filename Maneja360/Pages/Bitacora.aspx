@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Bitácora de Eventos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Bitacora.aspx.cs" Inherits="Maneja360.Bitacora" %>
+﻿<%@ Page Title="Bitácora de Eventos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Bitacora.aspx.cs" Inherits="Maneja360.Pages.Bitacora" %>
 
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
