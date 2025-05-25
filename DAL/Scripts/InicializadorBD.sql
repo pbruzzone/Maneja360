@@ -1,20 +1,4 @@
-﻿﻿USE [master];
-GO
-IF EXISTS (
-    SELECT name 
-    FROM sys.databases 
-    WHERE name = 'Maneja360'
-)
-BEGIN
-    ALTER DATABASE [Maneja360] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-    DROP DATABASE [Maneja360];
-END
-GO
-CREATE DATABASE [Maneja360];
-GO
-USE [Maneja360];
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Idioma]') AND type in (N'U'))
+﻿IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Idioma]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Idioma] (
     [IdiomaId]    INT           IDENTITY (1, 1) NOT NULL,
@@ -27,7 +11,7 @@ INSERT INTO [dbo].[Idioma] ([IdiomaId], [Cultura], [Descripcion]) VALUES (1, N'e
 INSERT INTO [dbo].[Idioma] ([IdiomaId], [Cultura], [Descripcion]) VALUES (2, N'en-US', N'Inglés')
 SET IDENTITY_INSERT [dbo].[Idioma] OFF
 END
-GO
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Perfil]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Perfil] (
@@ -44,7 +28,7 @@ INSERT INTO [dbo].[Perfil] ([PerfilId], [Nombre], [Permiso]) VALUES (4, N'VentaP
 INSERT INTO [dbo].[Perfil] ([PerfilId], [Nombre], [Permiso]) VALUES (5, N'CompraProducto', N'CompraProducto')
 SET IDENTITY_INSERT [dbo].[Perfil] OFF
 END
-GO
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PerfilJerarquia]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[PerfilJerarquia] (
@@ -62,7 +46,7 @@ INSERT INTO [dbo].[PerfilJerarquia] ([PadreId], [HijoId]) VALUES (2, 4)
 INSERT INTO [dbo].[PerfilJerarquia] ([PadreId], [HijoId]) VALUES (2, 5)
 INSERT INTO [dbo].[PerfilJerarquia] ([PadreId], [HijoId]) VALUES (3, 5)
 END
-GO
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Usuario]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Usuario] (
@@ -86,7 +70,7 @@ INSERT INTO [dbo].[Usuario] ([UsuarioId], [Nombre], [Apellido], [DNI], [Mail], [
 INSERT INTO [dbo].[Usuario] ([UsuarioId], [Nombre], [Apellido], [DNI], [Mail], [NombreUsuario], [Password], [Bloqueado], [Activo], [IdiomaId], [ResetPassword]) VALUES (3, N'Camila', N'Bruzzone', N'56372833', N'cbruzzone@maneja360.com.ar', N'belcami', N'8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 0, 1, 1, 0)
 SET IDENTITY_INSERT [dbo].[Usuario] OFF
 END
-GO
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UsuarioPerfil]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[UsuarioPerfil]
@@ -101,7 +85,7 @@ INSERT INTO [dbo].[UsuarioPerfil] ([UsuarioId], [PerfilId]) VALUES (1, 1)
 INSERT INTO [dbo].[UsuarioPerfil] ([UsuarioId], [PerfilId]) VALUES (2, 2)
 INSERT INTO [dbo].[UsuarioPerfil] ([UsuarioId], [PerfilId]) VALUES (3, 3)
 END
-GO
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BitacoraEvento]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[BitacoraEvento]
@@ -116,4 +100,4 @@ CREATE TABLE [dbo].[BitacoraEvento]
     CONSTRAINT [PK_BitacoraEvento] PRIMARY KEY CLUSTERED ([BitacoraEventoId] ASC)
 );
 END
-GO
+

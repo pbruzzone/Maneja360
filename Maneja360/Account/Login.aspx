@@ -41,6 +41,7 @@
                             <asp:Button runat="server" OnClick="LogIn" Text="Iniciar Sesión" CssClass="btn btn-primary" />
                         </div>
                     </div>
+                    <p>Usuario de prueba: admin Pass: 123456</p>
                    <%-- <div class="row mb-3">
                         <div class="col-md-12">
                             <asp:HyperLink runat="server" ID="RegisterHyperLink" ViewStateMode="Disabled" CssClass=".fs-5">Registrarse como un nuevo usuario</asp:HyperLink>

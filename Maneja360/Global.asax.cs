@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Maneja360.Infrastructure;
+using DAL;
 
 namespace Maneja360
 {
@@ -12,6 +12,7 @@ namespace Maneja360
         {
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            DAO.EnsureDatabaseExists();
         }
 
         protected void Session_End(object sender, EventArgs e)

@@ -270,7 +270,7 @@ namespace DAL
         {
             using (var scope = new TransactionScope())
             {
-                using (var cnn = new SqlConnection(_dao.ConnectionString))
+                using (var cnn = new SqlConnection(DAO.ConnectionString))
                 {
                     cnn.Open();
                     using (var cmd = cnn.CreateCommand())
