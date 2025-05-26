@@ -10,24 +10,6 @@ namespace DAL
     {
         private readonly DAO _dao = new DAO();
 
-        public IList<BitacoraEvento> Listar()
-        {
-            const string query = @"SELECT BitacoraEventoId, 
-                                          NombreUsuario, 
-                                          Fecha, 
-                                          Hora, 
-                                          Modulo,
-                                          Evento,
-                                          Criticidad
-                                    FROM BitacoraEvento";
-
-            var dt = _dao.ExecuteDataset(query);
-
-            var list = Map(dt);
-
-            return list;
-        }
-
         public IList<BitacoraEvento> Listar(string nombreUsuario, DateTime? fechaIni, DateTime? fechaFin, Modulo modulo, Evento evento, Criticidad criticidad)
         {
             const string query = @"SELECT BitacoraEventoId, 
@@ -38,7 +20,7 @@ namespace DAL
                                           Evento,
                                           Criticidad
                                    FROM BitacoraEvento
-                                   WHERE (@NombreUsuario IS NULL OR NombreUsuario = @NombreUsuario)
+                                   WHERE (@NombreUsuario IS NULL OR NombreUsuario LIKE '%' + @NombreUsuario + '%')
                                    AND ((@FechaIni IS NULL OR @FechaFin IS NULL) OR (Fecha >= @FechaIni AND Fecha <= @FechaFin))  
                                    AND (@Modulo IS NULL OR Modulo = @Modulo)
                                    AND (@Evento IS NULL OR Evento = @Evento)

@@ -30,11 +30,6 @@ namespace BLL
             _dal.Guardar(entity);
         }
 
-        public IList<BitacoraEvento> Listar()
-        {
-            return _dal.Listar();
-        }
-
         public IList<BitacoraEvento> Listar(
             string nombreUsuario, 
             DateTime? fechaIni, 
