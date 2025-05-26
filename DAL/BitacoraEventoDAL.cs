@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace DAL
 {
@@ -10,7 +11,7 @@ namespace DAL
     {
         private readonly DAO _dao = new DAO();
 
-        public IList<BitacoraEvento> Listar(string nombreUsuario, DateTime? fechaIni, DateTime? fechaFin, Modulo modulo, Evento evento, Criticidad criticidad)
+        public IEnumerable<BitacoraEvento> Listar(string nombreUsuario, DateTime? fechaIni, DateTime? fechaFin, Modulo modulo, Evento evento, Criticidad criticidad)
         {
             const string query = @"SELECT BitacoraEventoId, 
                                           NombreUsuario, 
@@ -26,7 +27,10 @@ namespace DAL
                                    AND (@Evento IS NULL OR Evento = @Evento)
                                    AND (@Criticidad IS NULL OR Criticidad = @Criticidad)";
 
-            var dt = _dao.ExecuteDataset(query,
+
+            var result = _dao.Query(
+                query,
+                MapFn,
                 new
                 {
                     NombreUsuario = string.IsNullOrWhiteSpace(nombreUsuario) ? null : nombreUsuario,
@@ -35,14 +39,27 @@ namespace DAL
                     Modulo = modulo == Modulo.Ninguno ? (object)null : modulo.Codigo,
                     Evento = evento == Evento.Ninguno ? (object)null : evento.Codigo,
                     Criticidad = criticidad == Criticidad.Ninguna ? (object)null : criticidad
-                });
+                }
+            );
 
-            var list = Map(dt);
-
-            return list;
+            return result;
         }
 
-        private static List<BitacoraEvento> Map(DataTable dt)
+        private static BitacoraEvento MapFn(IDataReader r)
+        {
+            return new BitacoraEvento
+            {
+                BitacoraEventoId = (int)r["BitacoraEventoId"],
+                NombreUsuario = (string)r["NombreUsuario"],
+                Fecha = (DateTime)r["Fecha"],
+                Hora = (TimeSpan)r["Hora"],
+                Modulo = Modulo.ObtenerPorCodigo((int)r["Modulo"]),
+                Evento = Evento.ObtenerPorCodigo((int)r["Evento"]),
+                Criticidad = (Criticidad)r["Criticidad"]
+            };
+        }
+
+        private static List<BitacoraEvento> MapFn(DataTable dt)
         {
             var query = from row in dt.AsEnumerable()
                         select new BitacoraEvento

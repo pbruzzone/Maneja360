@@ -20,18 +20,15 @@ namespace DAL
             _dao.ExecuteNonQuery(query, new { entity.PerfilId });
         }
 
-        public IList<Perfil> Listar()
+        public IEnumerable<Perfil> Listar()
         {
             const string query = "SELECT PerfilId, Nombre, Permiso FROM Perfil";
 
-            var dt = _dao.ExecuteDataset(query);
-
-            var list = Map(dt);
-
-            return list;
+            var result = _dao.Query(query, MapFn);
+            return result;
         }
 
-        public IList<Perfil> ObtenerPerfiles()
+        public IEnumerable<Perfil> ObtenerPerfiles()
         {
             const string query = @"SELECT
                                      p.PerfilId,
@@ -41,23 +38,16 @@ namespace DAL
                                    INNER JOIN PerfilJerarquia pj ON p.PerfilId = pj.HijoId
                                    WHERE pj.PadreId IS NULL";
 
-            var dt = _dao.ExecuteDataset(query);
-
-            var list = Map(dt);
-
-            return list;
+            var result = _dao.Query(query, MapFn);
+            return result;
         }
 
-        private static List<Perfil> Map(DataTable dt)
+        private static Perfil MapFn(IDataReader r)
         {
-            var query = from row in dt.AsEnumerable()
-                        let perfilId = row.Field<int>("PerfilId")
-                        let nombre = row.Field<string>("Nombre")
-                        let permiso = row.Field<string>("Permiso")
-                        select Perfil.Crear(perfilId, nombre, permiso);
-
-            var list = query.ToList();
-            return list;
+           var perfilId = (int)r["PerfilId"];
+           var nombre = r["Nombre"].ToString();
+           var permiso = r["Permiso"].ToString();
+           return Perfil.Crear(perfilId, nombre, permiso);
         }
 
         public Perfil Obtener(int id)
@@ -302,11 +292,11 @@ namespace DAL
 
         public bool TieneUsuariosAsignados(int perfilId)
         {
-            const string query = "SELECT * FROM UsuarioPerfil WHERE PerfilId = @PerfilId";
+            const string query = "SELECT COUNT(*) FROM UsuarioPerfil WHERE PerfilId = @PerfilId";
 
-            var dt = _dao.ExecuteDataset(query, new { PerfilId = perfilId });
+            var count = _dao.ExecuteScalar<int>(query, new { PerfilId = perfilId });
 
-            return dt.Rows.Count > 0;
+            return count > 0;
         }
     }
 }

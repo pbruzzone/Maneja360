@@ -19,7 +19,7 @@ namespace DAL
             _dao.ExecuteNonQuery(query, new { entity.UsuarioId });
         }
 
-        public IList<Usuario> Listar()
+        public IEnumerable<Usuario> Listar()
         {
             const string query = @"SELECT u.*, 
                                           i.IdiomaId, 
@@ -28,52 +28,35 @@ namespace DAL
                                    FROM Usuario u 
                                    INNER JOIN Idioma i on u.IdiomaId = i.IdiomaId";
 
-            var dt = _dao.ExecuteDataset(query);
-
-            var list = Map(dt);
-
-            return list;
+            var result = _dao.Query(query, MapFn);
+            return result;
         }
 
-        private List<Usuario> Map(DataTable dt)
+        private Usuario MapFn(IDataReader r)
         {
-            var usuarios = new List<Usuario>();
-
-            Usuario usuario = null;
-
-            foreach (DataRow row in dt.Rows)
+            var usuario = new Usuario
             {
-                var usuarioId = row.Field<int>("UsuarioId");
-
-                if (usuario == null || usuario.UsuarioId != usuarioId)
+                UsuarioId = (int)r["UsuarioId"],
+                Nombre = r["Nombre"].ToString(),
+                Apellido = r["Apellido"].ToString(),
+                DNI = r["DNI"].ToString(),
+                Mail = r["Mail"].ToString(),
+                NombreUsuario = r["NombreUsuario"].ToString(),
+                Password = r["Password"].ToString(),
+                Activo = (bool)r["Activo"],
+                Bloqueado = (bool)r["Bloqueado"],
+                ResetPassword = (bool)r["ResetPassword"],
+                Idioma = new Idioma
                 {
-                    usuario = new Usuario
-                    {
-                        UsuarioId = usuarioId,
-                        Nombre = row.Field<string>("Nombre"),
-                        Apellido = row.Field<string>("Apellido"),
-                        DNI = row.Field<string>("DNI"),
-                        Mail = row.Field<string>("Mail"),
-                        NombreUsuario = row.Field<string>("NombreUsuario"),
-                        Password = row.Field<string>("Password"),
-                        Activo = row.Field<bool>("Activo"),
-                        Bloqueado = row.Field<bool>("Bloqueado"),
-                        ResetPassword = row.Field<bool>("ResetPassword"),
-                        Idioma = new Idioma
-                        {
-                            IdiomaId = row.Field<int>("IdiomaId"),
-                            Cultura = row.Field<string>("Cultura"),
-                            Descripcion = row.Field<string>("IdiomaDesc")
-                        },
-                    };
+                    IdiomaId = (int)r["IdiomaId"],
+                    Cultura = r["Cultura"].ToString(),
+                    Descripcion = r["IdiomaDesc"].ToString()
+                },
+            };
 
-                    _perfilDAL.FillUserComponents(usuario);
+            _perfilDAL.FillUserComponents(usuario);
 
-                    usuarios.Add(usuario);
-                }
-            }
-
-            return usuarios;
+            return usuario;
         }
 
         public Usuario Obtener(int id)

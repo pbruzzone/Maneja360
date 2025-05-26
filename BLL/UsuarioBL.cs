@@ -33,7 +33,7 @@ namespace BLL
             _dal.Guardar(entity);
         }
 
-        public IList<Usuario> Listar()
+        public IEnumerable<Usuario> Listar()
         {
             return _dal.Listar();
         }

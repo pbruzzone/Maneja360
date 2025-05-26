@@ -30,7 +30,7 @@ namespace BLL
             _dal.Guardar(entity);
         }
 
-        public IList<BitacoraEvento> Listar(
+        public IEnumerable<BitacoraEvento> Listar(
             string nombreUsuario, 
             DateTime? fechaIni, 
             DateTime? fechaFin, 

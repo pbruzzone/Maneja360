@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,25 +17,22 @@ namespace DAL
             return new SqlConnection(ConnectionString);
         }
 
-        public DataTable ExecuteDataset(string cmdText, object param = null)
+        public IEnumerable<T> Query<T>(string cmdText, Func<IDataReader, T> map, object param = null)
         {
-            return ExecuteDataset(cmd => SetupCommand(cmd, cmdText, param));
-        }
-
-        private DataTable ExecuteDataset(Action<SqlCommand> cmdAction)
-        {
-            var dt = new DataTable();
-            if (cmdAction == null) return dt;
-
+            if (map == null) throw new ArgumentNullException(nameof(map));
             using (var conn = CreateConnection())
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmdAction(cmd);
+                    SetupCommand(cmd, cmdText, param);
                     conn.Open();
-                    var da = new SqlDataAdapter(cmd);
-                    da.Fill(dt);
-                    return dt;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            yield return map(reader);
+                        }
+                    }
                 }
             }
         }
@@ -57,12 +55,12 @@ namespace DAL
             }
         }
 
-        public object ExecuteScalar(string cmdText, object param = null)
+        public T ExecuteScalar<T>(string cmdText, object param = null)
         {
-            return ExecuteScalar(cmd => SetupCommand(cmd, cmdText, param));
+            return ExecuteScalar<T>(cmd => SetupCommand(cmd, cmdText, param));
         }
 
-        private object ExecuteScalar(Action<SqlCommand> cmdAction)
+        private T ExecuteScalar<T>(Action<SqlCommand> cmdAction)
         {
             using (var conn = CreateConnection())
             {
@@ -71,7 +69,7 @@ namespace DAL
                     cmdAction(cmd);
                     conn.Open();
                     var result = cmd.ExecuteScalar();
-                    return result;
+                    return (T)result;
                 }
             }
         }
