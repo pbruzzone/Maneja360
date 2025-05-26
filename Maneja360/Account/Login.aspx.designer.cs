@@ -58,5 +58,19 @@ namespace Maneja360.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox RememberMe;
+
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new Maneja360.SiteMaster Master
+        {
+            get
+            {
+                return ((Maneja360.SiteMaster)(base.Master));
+            }
+        }
     }
 }

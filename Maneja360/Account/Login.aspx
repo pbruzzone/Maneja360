@@ -41,7 +41,18 @@
                             <asp:Button runat="server" OnClick="LogIn" Text="Iniciar Sesión" CssClass="btn btn-primary" />
                         </div>
                     </div>
-                    <p>Usuario de prueba: admin Pass: 123456</p>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <table class="table table-sm table-striped">
+                                <thead><th>Usuario</th><th>Password</th><th>Perfil</th></thead>
+                                <tbody>
+                                    <tr><td>admin</td><td>123456</td><td>Administrador</td></tr>
+                                    <tr><td>pbruzzone</td><td>123456</td><td>Operador</td></tr>
+                                    <tr><td>belcami</td><td>123456</td><td>Cliente</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                    <%-- <div class="row mb-3">
                         <div class="col-md-12">
                             <asp:HyperLink runat="server" ID="RegisterHyperLink" ViewStateMode="Disabled" CssClass=".fs-5">Registrarse como un nuevo usuario</asp:HyperLink>
