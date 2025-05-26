@@ -39,16 +39,11 @@ namespace DAL
 
         public void ExecuteNonQuery(string cmdText, object param = null)
         {
-            ExecuteNonQuery(cmd => SetupCommand(cmd, cmdText, param));
-        }
-
-        private void ExecuteNonQuery(Action<SqlCommand> cmdAction)
-        {
             using (var conn = CreateConnection())
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmdAction(cmd);
+                    SetupCommand(cmd, cmdText, param);
                     conn.Open();
                     cmd.ExecuteNonQuery();
                 }
@@ -57,16 +52,11 @@ namespace DAL
 
         public T ExecuteScalar<T>(string cmdText, object param = null)
         {
-            return ExecuteScalar<T>(cmd => SetupCommand(cmd, cmdText, param));
-        }
-
-        private T ExecuteScalar<T>(Action<SqlCommand> cmdAction)
-        {
             using (var conn = CreateConnection())
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmdAction(cmd);
+                    SetupCommand(cmd, cmdText, param);
                     conn.Open();
                     var result = cmd.ExecuteScalar();
                     return (T)result;
