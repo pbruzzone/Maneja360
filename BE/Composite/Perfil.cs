@@ -32,7 +32,6 @@ namespace BE.Composite
             return new Patente() { PerfilId = id, Nombre = nombre, Permiso = per };
         }
 
-
         public bool Contiene(TipoPermiso permiso)
         {
             return Contiene(this, permiso);

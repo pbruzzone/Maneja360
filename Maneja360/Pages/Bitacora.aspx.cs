@@ -31,8 +31,8 @@ namespace Maneja360.Pages
         {
             var nombreUsuario = NombreUsuario.Text.Trim();
 
-            DateTime? fechaIni = DateTime.TryParse(FechaDesde.Text, out var fi) ? fi : (DateTime?)null;
-            DateTime? fechaFin = DateTime.TryParse(FechaHasta.Text, out var ff) ? ff : (DateTime?)null;
+            var fechaIni = DateTime.TryParse(FechaDesde.Text, out var fi) ? fi : (DateTime?)null;
+            var fechaFin = DateTime.TryParse(FechaHasta.Text, out var ff) ? ff : (DateTime?)null;
 
             var modulo = Modulo.ObtenerPorCodigo(Convert.ToInt32(ComboModulo.SelectedValue));
             var evento = Evento.ObtenerPorCodigo(Convert.ToInt32(ComboEvento.SelectedValue));
@@ -66,7 +66,6 @@ namespace Maneja360.Pages
             CargarBitacora();
         }
 
-
         protected void Limpiar_OnClick(object sender, EventArgs e)
         {
             NombreUsuario.Text = "";
@@ -77,7 +76,6 @@ namespace Maneja360.Pages
 
             CargarBitacora();
         }
-
 
         protected void ComboModulo_OnSelectedIndexChanged(object sender, EventArgs e)
         {

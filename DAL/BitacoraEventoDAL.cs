@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Security.Cryptography;
 
 namespace DAL
 {
@@ -57,24 +55,6 @@ namespace DAL
                 Evento = Evento.ObtenerPorCodigo((int)r["Evento"]),
                 Criticidad = (Criticidad)r["Criticidad"]
             };
-        }
-
-        private static List<BitacoraEvento> MapFn(DataTable dt)
-        {
-            var query = from row in dt.AsEnumerable()
-                        select new BitacoraEvento
-                        {
-                            BitacoraEventoId = row.Field<int>("BitacoraEventoId"),
-                            NombreUsuario = row.Field<string>("NombreUsuario"),
-                            Fecha = row.Field<DateTime>("Fecha"),
-                            Hora = row.Field<TimeSpan>("Hora"),
-                            Modulo = Modulo.ObtenerPorCodigo(row.Field<int>("Modulo")),
-                            Evento = Evento.ObtenerPorCodigo(row.Field<int>("Evento")),
-                            Criticidad = row.Field<Criticidad>("Criticidad")
-                        };
-
-            var list = query.ToList();
-            return list;
         }
 
         public void Guardar(BitacoraEvento entity)

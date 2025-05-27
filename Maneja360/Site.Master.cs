@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Maneja360.Infrastructure;
@@ -10,16 +7,13 @@ namespace Maneja360
 {
     public partial class SiteMaster : MasterPage
     {
-        private SignInManager signinManager = new SignInManager();
+        private readonly SignInManager _signinManager = new SignInManager();
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
+        protected void Page_Load(object sender, EventArgs e) { }
 
         protected void LoggingOut(object sender, LoginCancelEventArgs e)
         {
-            signinManager.SignOut();
+            _signinManager.SignOut();
         }
     }
 }

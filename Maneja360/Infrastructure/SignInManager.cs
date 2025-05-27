@@ -11,7 +11,7 @@ namespace Maneja360.Infrastructure
         private readonly UsuarioBL _usuarioBL = new UsuarioBL();
         private readonly BitacoraEventoBL _bitacoraBL = new BitacoraEventoBL();
 
-        private int retriesCount = 0;
+        private int _retriesCount = 0;
 
         private static HttpContext Context => HttpContext.Current;
 
@@ -37,18 +37,18 @@ namespace Maneja360.Infrastructure
             {
                 FormsAuthentication.SetAuthCookie(nombreUsuario, false);
                 Usuario = usr;
-                retriesCount = 0;
+                _retriesCount = 0;
                 _bitacoraBL.Guardar(Evento.Login, Modulo.Usuario, Criticidad.Alta, Usuario.NombreUsuario);
                 return SignInStatus.Success;
             }
 
-            retriesCount++;
+            _retriesCount++;
 
-            if (retriesCount != 3) return SignInStatus.Failure;
+            if (_retriesCount != 3) return SignInStatus.Failure;
             
             _usuarioBL.Bloquear(usr);
             _bitacoraBL.Guardar(Evento.BloquearUsuario, Modulo.Usuario, Criticidad.Alta, Usuario.NombreUsuario);
-            retriesCount = 0;
+            _retriesCount = 0;
             return SignInStatus.LockedOut;
         }
 
