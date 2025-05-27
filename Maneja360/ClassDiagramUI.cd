@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Maneja360.Infrastructure.SignInManager">
+    <Position X="0.5" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAACCAAgAAAAAAAgAAAAAAAAAAABAAAQBECAAAAAA=</HashCode>
+      <FileName>Infrastructure\SignInManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Maneja360.Infrastructure.SignInStatus">
+    <Position X="3.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAACAAIAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\SignInStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BE.BitacoraEvento">
+    <Position X="9.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAsAAAAAAQIAACAAAAAA=</HashCode>
+      <FileName>BitacoraEvento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.Evento">
+    <Position X="11.5" Y="3.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQABAQgEAQAAAAIBAAAIgAEAAQAQAAoAAAA=</HashCode>
+      <FileName>Evento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.Idioma">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAARAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Idioma.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.Modulo">
+    <Position X="11.5" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAQABABgEAAAAgQAQAAAIAAAACQAEAAAAAAA=</HashCode>
+      <FileName>Modulo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.Usuario">
+    <Position X="4.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAEAIAAgAAAAIEAAAAiAIEAAQAAAAA=</HashCode>
+      <FileName>Usuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.Composite.Familia">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAIAAAAAAgAAAAAAAAAAAAAAAAAAEAAAAQ=</HashCode>
+      <FileName>Composite\Familia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.Composite.Patente">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAIAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Composite\Patente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.Composite.Perfil">
+    <Position X="1.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAgAAAAIAAAEAAgAgAEAAAAgAAAQAAAAAAAAAAQ=</HashCode>
+      <FileName>Composite\Perfil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="BE.Criticidad">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAQAAAAAAAAAAQEAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Criticidad.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BE.TipoPermiso">
+    <Position X="9.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAEAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>TipoPermiso.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BE.Composite.TipoPerfil">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAgAAAAA=</HashCode>
+      <FileName>Composite\TipoPerfil.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

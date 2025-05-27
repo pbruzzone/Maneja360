@@ -58,6 +58,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\InicializadorBD.sql" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="ClassDiagramDAL.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
