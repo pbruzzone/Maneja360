@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BE;
 using BE.Composite;
 using BLL;
 
@@ -20,9 +21,10 @@ namespace Maneja360
         
         protected void CargarPerfiles()
         {
-            var usr = _usuarioBL.ObtenerPorNombreUsuario(Context.User.Identity.Name);
-
+            var usr = Session["Usuario"] as Usuario ?? _usuarioBL.ObtenerPorNombreUsuario(Context.User.Identity.Name);
+            
             var root = new TreeNode(usr.NombreUsuario) { SelectAction = TreeNodeSelectAction.None };
+            
             ProfileTreeView.Nodes.Add(root);
 
             foreach (var perfil in usr.Perfiles)

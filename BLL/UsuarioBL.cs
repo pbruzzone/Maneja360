@@ -45,7 +45,7 @@ namespace BLL
 
         public Usuario ObtenerPorNombreUsuario(string nombreUsuario)
         {
-            var usuario = _dal.Listar().FirstOrDefault(x => x.NombreUsuario == nombreUsuario);
+            var usuario = _dal.ObtenerPorNombreDeUsuario(nombreUsuario);
             return usuario;
         }
 

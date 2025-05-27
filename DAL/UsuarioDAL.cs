@@ -21,42 +21,35 @@ namespace DAL
 
         public IEnumerable<Usuario> Listar()
         {
-            const string query = @"SELECT u.*, 
-                                          i.IdiomaId, 
-                                          i.Cultura, 
-                                          i.Descripcion As IdiomaDesc 
-                                   FROM Usuario u 
-                                   INNER JOIN Idioma i on u.IdiomaId = i.IdiomaId";
-
-            var result = _dao.Query(query, MapFn);
+            var result = _dao.Query<Usuario>(
+                cmdText:GetSelectStatement(), 
+                callbackFn: usr => _perfilDAL.FillUserComponents(usr));
+            
             return result;
         }
 
-        private Usuario MapFn(IDataReader r)
+        public Usuario ObtenerPorNombreDeUsuario(string nombreUsuario)
         {
-            var usuario = new Usuario
-            {
-                UsuarioId = (int)r["UsuarioId"],
-                Nombre = r["Nombre"].ToString(),
-                Apellido = r["Apellido"].ToString(),
-                DNI = r["DNI"].ToString(),
-                Mail = r["Mail"].ToString(),
-                NombreUsuario = r["NombreUsuario"].ToString(),
-                Password = r["Password"].ToString(),
-                Activo = (bool)r["Activo"],
-                Bloqueado = (bool)r["Bloqueado"],
-                ResetPassword = (bool)r["ResetPassword"],
-                Idioma = new Idioma
-                {
-                    IdiomaId = (int)r["IdiomaId"],
-                    Cultura = r["Cultura"].ToString(),
-                    Descripcion = r["IdiomaDesc"].ToString()
-                },
-            };
+            if (string.IsNullOrEmpty(nombreUsuario)) return null;
+            
+            var cmdText = GetSelectStatement() + " WHERE u.NombreUsuario = @NombreUsuario";
+            
+            var result = _dao.QuerySingleOrDefault<Usuario>(
+                cmdText, 
+                param: new { nombreUsuario }, 
+                callbackFn: usr => _perfilDAL.FillUserComponents(usr));
+            
+            return result;
+        }
 
-            _perfilDAL.FillUserComponents(usuario);
-
-            return usuario;
+        private static string GetSelectStatement()
+        {
+            return @"SELECT u.*, 
+                            i.IdiomaId AS Idioma_IdiomaId, 
+                            i.Cultura AS Idioma_Cultura, 
+                            i.Descripcion As Idioma_Descripcion
+                     FROM Usuario u 
+                     INNER JOIN Idioma i on u.IdiomaId = i.IdiomaId";
         }
 
         public Usuario Obtener(int id)

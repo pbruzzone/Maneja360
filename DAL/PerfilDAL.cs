@@ -127,7 +127,6 @@ namespace DAL
 
                     while (reader.Read())
                     {
-
                         var permisoId = reader.GetInt32(reader.GetOrdinal("PerfilId"));
                         var permisoNombre = reader.GetString(reader.GetOrdinal("Nombre"));
 
