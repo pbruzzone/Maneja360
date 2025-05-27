@@ -23,7 +23,8 @@ namespace DAL
                                    AND ((@FechaIni IS NULL OR @FechaFin IS NULL) OR (Fecha >= @FechaIni AND Fecha <= @FechaFin))  
                                    AND (@Modulo IS NULL OR Modulo = @Modulo)
                                    AND (@Evento IS NULL OR Evento = @Evento)
-                                   AND (@Criticidad IS NULL OR Criticidad = @Criticidad)";
+                                   AND (@Criticidad IS NULL OR Criticidad = @Criticidad)
+                                   ORDER BY Fecha DESC, Hora DESC";
 
 
             var result = _dao.Query(
