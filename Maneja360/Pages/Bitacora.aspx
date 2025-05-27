@@ -14,7 +14,7 @@
                     </p>
                 </asp:PlaceHolder>
                 <div class="row row-cols-lg-auto mb-3 align-items-center">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <asp:Label runat="server" AssociatedControlID="NombreUsuario" CssClass="form-label">Nombre usuario</asp:Label>
                         <asp:TextBox runat="server" ID="NombreUsuario" CssClass="form-control" />
                     </div>
@@ -38,7 +38,7 @@
                         <asp:Label runat="server" AssociatedControlID="ComboCriticidad" CssClass="form-label">Criticidad</asp:Label>
                         <asp:DropDownList runat="server" ID="ComboCriticidad" CssClass="form-control" />
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <asp:Label runat="server" CssClass="form-label">Acciones</asp:Label>
                         <div class="mt-2">
                             <asp:Button runat="server" ID="Filtrar" CssClass="col-auto btn btn-primary btn-sm" Text="Filtrar" OnClick="Filtrar_OnClick"/>
