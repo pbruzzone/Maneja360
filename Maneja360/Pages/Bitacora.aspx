@@ -61,5 +61,9 @@
                 </Columns>
             </asp:GridView>
         </section>
+        <script>
+            document.getElementById('<%= GridBitacora.ClientID %>')
+                .parentElement.className = 'table-responsive';
+        </script>
     </main>
 </asp:Content>
