@@ -11,7 +11,7 @@ namespace DAL
     {
         public static string ConnectionString { get; } = ConfigurationManager.ConnectionStrings["Maneja360"].ConnectionString;
 
-        public SqlConnection CreateConnection()
+        public static SqlConnection CreateConnection()
         {
             return new SqlConnection(ConnectionString);
         }
@@ -176,7 +176,7 @@ namespace DAL
         {
             try
             {
-                using (var connection = new SqlConnection(ConnectionString))
+                using (var connection = CreateConnection())
                 {
                     connection.Open();
 

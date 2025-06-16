@@ -71,7 +71,7 @@ namespace DAL
 
             using (var scope = new TransactionScope())
             {
-                using (var cnn = _dao.CreateConnection())
+                using (var cnn = DAO.CreateConnection())
                 {
                     cnn.Open();
 
@@ -109,7 +109,7 @@ namespace DAL
 
         public void FillUserComponents(Usuario usr)
         {
-            using (var cnn = _dao.CreateConnection())
+            using (var cnn = DAO.CreateConnection())
             {
                 cnn.Open();
                 var cmd = cnn.CreateCommand();
@@ -176,7 +176,7 @@ namespace DAL
                 where = $"={familiaId}";
             }
 
-            using (var cnn = _dao.CreateConnection())
+            using (var cnn = DAO.CreateConnection())
             {
                 cnn.Open();
                 var cmd = cnn.CreateCommand();
