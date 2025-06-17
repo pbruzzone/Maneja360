@@ -47,6 +47,7 @@
     <Compile Include="Composite\Perfil.cs" />
     <Compile Include="Composite\TipoPerfil.cs" />
     <Compile Include="Criticidad.cs" />
+    <Compile Include="DV.cs" />
     <Compile Include="Evento.cs" />
     <Compile Include="Idioma.cs" />
     <Compile Include="Modulo.cs" />

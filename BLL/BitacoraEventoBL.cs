@@ -8,6 +8,7 @@ namespace BLL
     public class BitacoraEventoBL
     {
         private readonly BitacoraEventoDAL _dal = new BitacoraEventoDAL();
+        private readonly DVBL _dvBL = new DVBL();
 
         public void Guardar(Evento evento, Modulo modulo, Criticidad criticidad, string nombreUsuario)
         {
@@ -23,6 +24,7 @@ namespace BLL
             };
 
             Guardar(evt);
+            _dvBL.RecalcularDV("BitacoraEvento");
         }
 
         public void Guardar(BitacoraEvento entity)

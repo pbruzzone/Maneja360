@@ -5,5 +5,6 @@
         Success,
         LockedOut,
         Failure,
+        DVError
     }
 }

@@ -9,6 +9,7 @@ namespace Maneja360.Infrastructure
     {
         private readonly PasswordHasher _passwordHasher = new PasswordHasher();
         private readonly UsuarioBL _usuarioBL = new UsuarioBL();
+        private readonly DVBL _dvBL = new DVBL();
         private readonly BitacoraEventoBL _bitacoraBL = new BitacoraEventoBL();
 
         private int _retriesCount = 0;
@@ -33,11 +34,20 @@ namespace Maneja360.Infrastructure
             if (usr == null) return SignInStatus.Failure;
             if (usr.Bloqueado) return SignInStatus.LockedOut;
 
+            var (isValidDV, errors) = _dvBL.VerificarDV();
+
             if (ValidPassword(usr, password))
             {
                 FormsAuthentication.SetAuthCookie(nombreUsuario, false);
                 Usuario = usr;
                 _retriesCount = 0;
+                
+                if (!isValidDV)
+                {
+                    Context.Session["DVErrors"] = errors;
+                    return SignInStatus.DVError;
+                }
+
                 _bitacoraBL.Guardar(Evento.Login, Modulo.Usuario, Criticidad.Alta, Usuario.NombreUsuario);
                 return SignInStatus.Success;
             }
@@ -52,11 +62,14 @@ namespace Maneja360.Infrastructure
             return SignInStatus.LockedOut;
         }
 
-        public void SignOut()
+        public void SignOut(bool saveEvent = true)
         {
             FormsAuthentication.SignOut();
-            var nombreUsuario = Usuario?.NombreUsuario ?? Context?.User?.Identity?.Name;
-            _bitacoraBL.Guardar(Evento.Logout, Modulo.Usuario, Criticidad.Alta, nombreUsuario);
+            if (saveEvent)
+            {
+                var nombreUsuario = Usuario?.NombreUsuario ?? Context?.User?.Identity?.Name;
+                _bitacoraBL.Guardar(Evento.Logout, Modulo.Usuario, Criticidad.Alta, nombreUsuario);
+            }
             Usuario = null;
         }
 

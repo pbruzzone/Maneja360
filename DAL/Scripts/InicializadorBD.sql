@@ -101,3 +101,11 @@ CREATE TABLE [dbo].[BitacoraEvento]
 );
 END
 
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DV]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[DV] (
+    [TableName] VARCHAR (50)    NOT NULL,
+    [Hash]      VARBINARY(MAX)  NOT NULL,
+    CONSTRAINT [PK_DV] PRIMARY KEY CLUSTERED ([TableName] ASC)
+);
+END

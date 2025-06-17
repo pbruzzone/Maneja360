@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DAO.cs" />
     <Compile Include="BitacoraEventoDAL.cs" />
+    <Compile Include="DVDAL.cs" />
     <Compile Include="PerfilDAL.cs" />
     <Compile Include="UsuarioDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

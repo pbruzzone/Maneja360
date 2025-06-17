@@ -21,7 +21,7 @@ namespace DAL
             return Query(cmdText, MapDataReaderTo<T>, param, callbackFn);
         }
 
-        public IEnumerable<T> Query<T>(string cmdText, Func<IDataReader, T> map, object param = null, Action<T> callbackFn = null)
+        public IEnumerable<T> Query<T>(string cmdText, Func<SqlDataReader, T> map, object param = null, Action<T> callbackFn = null)
         {
             if (map == null) throw new ArgumentNullException(nameof(map));
             using (var conn = CreateConnection())
@@ -50,7 +50,7 @@ namespace DAL
             return QuerySingleOrDefault(cmdText, MapDataReaderTo<T>, param, callbackFn);
         }
 
-        public T QuerySingleOrDefault<T>(string cmdText, Func<IDataReader, T> map, object param = null, Action<T> callbackFn = null)
+        public T QuerySingleOrDefault<T>(string cmdText, Func<SqlDataReader, T> map, object param = null, Action<T> callbackFn = null)
         {
             if (map == null) throw new ArgumentNullException(nameof(map));
             using (var conn = CreateConnection())
@@ -244,6 +244,29 @@ namespace DAL
                 }
             }
             return obj;
+        }
+
+        public DataTable ExecuteDataset(string cmdText, object param = null)
+        {
+            return ExecuteDataset(cmd => SetupCommand(cmd, cmdText, param));
+        }
+
+        private static DataTable ExecuteDataset(Action<SqlCommand> cmdAction)
+        {
+            var dt = new DataTable();
+            if (cmdAction == null) return dt;
+
+            using (var conn = CreateConnection())
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmdAction(cmd);
+                    conn.Open();
+                    var da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                    return dt;
+                }
+            }
         }
     }
 }

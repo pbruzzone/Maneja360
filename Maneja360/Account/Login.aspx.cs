@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
+using System.Web.Security;
+using BLL;
 using Maneja360.Infrastructure;
 
 namespace Maneja360.Account
@@ -24,6 +27,16 @@ namespace Maneja360.Account
                     break;
                 case SignInStatus.LockedOut:
                     Response.Redirect("/Account/Lockout");
+                    break;
+                case SignInStatus.DVError:
+                    var user = _signinManager.Usuario;
+                    if (user != null && user.Perfiles.Any(p => p.Nombre == "Administrador"))
+                    {
+                        Response.Redirect("/Pages/Recuperacion.aspx");
+                    }
+                    FailureText.Text = "Error de verificación de datos. Por favor, contacte al administrador.";
+                    ErrorMessage.Visible = true;
+                    FormsAuthentication.SignOut();
                     break;
                 case SignInStatus.Failure:
                 default:
