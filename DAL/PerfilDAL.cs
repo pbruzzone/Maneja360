@@ -42,6 +42,23 @@ namespace DAL
             return result;
         }
 
+        public IEnumerable<Perfil> ObtenerPerfilesUsuario(string nombreUsuario)
+        {
+            const string query = @"SELECT
+                                     p.PerfilId,
+                                     p.Nombre,
+                                     p.Permiso
+                                   FROM Perfil p
+                                   INNER JOIN PerfilJerarquia pj ON p.PerfilId = pj.HijoId
+                                   INNER JOIN UsuarioPerfil up ON p.PerfilId = up.PerfilId 
+                                   INNER JOIN Usuario u ON u.UsuarioId = up.UsuarioId
+                                   WHERE pj.PadreId IS NULL
+                                   AND u.NombreUsuario = @NombreUsuario";
+
+            var result = _dao.Query(query, MapFn, new { nombreUsuario });
+            return result;
+        }
+
         private static Perfil MapFn(IDataReader r)
         {
            var perfilId = (int)r["PerfilId"];
