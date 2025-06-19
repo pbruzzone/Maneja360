@@ -46,6 +46,7 @@
     <Compile Include="DVBL.cs" />
     <Compile Include="PasswordHasher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RespaldoBL.cs" />
     <Compile Include="UsuarioBL.cs" />
   </ItemGroup>
   <ItemGroup>

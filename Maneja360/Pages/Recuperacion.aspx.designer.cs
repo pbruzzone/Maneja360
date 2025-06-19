@@ -33,6 +33,15 @@ namespace Maneja360.Pages
         protected global::System.Web.UI.WebControls.Panel recPanel;
 
         /// <summary>
+        /// backupFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload backupFile;
+
+        /// <summary>
         /// restoreButton control.
         /// </summary>
         /// <remarks>
@@ -42,6 +51,15 @@ namespace Maneja360.Pages
         protected global::System.Web.UI.WebControls.Button restoreButton;
 
         /// <summary>
+        /// backupButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button backupButton;
+
+        /// <summary>
         /// recalcularButton control.
         /// </summary>
         /// <remarks>
@@ -49,5 +67,14 @@ namespace Maneja360.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button recalcularButton;
+
+        /// <summary>
+        /// errorMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label errorMsg;
     }
 }

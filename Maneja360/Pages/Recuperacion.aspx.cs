@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
+using System.IO;
 using System.Text;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BE;
+using System.Web.Security;
 using BLL;
 using Maneja360.Infrastructure;
 
@@ -17,19 +12,28 @@ namespace Maneja360.Pages
     {
         private IDictionary<string, IList<string>> _dvErrors;
         private readonly DVBL _dvbl = new DVBL();
+        private readonly RespaldoBL _respaldoBL = new RespaldoBL();
         private readonly SignInManager _signInManager = new SignInManager();
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            var usuario = _signInManager.Usuario;
-            if (usuario == null || usuario.Perfiles.Any(p => p.Nombre == "Administrador"))
+            if (User.Identity.IsAuthenticated)
             {
-                _dvErrors = (IDictionary<string, IList<string>>)Session["DVErrors"];
-                recPanel.Visible = true;
+                if (User.IsInRole("Administrador"))
+                {
+                    _dvErrors = (IDictionary<string, IList<string>>)Session["DVErrors"];
+                    recPanel.Visible = true;
+                }
+                else
+                {
+                    recPanel.Visible = false;
+                    errorLabel.Text = "Usuario sin permisos de administrador.";
+                    errorLabel.ForeColor = System.Drawing.Color.Red;
+                }
             }
             else
             {
-                errorLabel.Text = "Usuario sin permisos de administrador.";
+                FormsAuthentication.RedirectToLoginPage();
             }
         }
 
@@ -67,7 +71,58 @@ namespace Maneja360.Pages
 
         protected void restoreButton_OnClick(object sender, EventArgs e)
         {
-            
+            var path = Server.MapPath($@"~/Recover/{backupFile.FileName}"); 
+            try
+            {
+                backupFile.SaveAs(path);
+                _respaldoBL.RealizarRestore(path);
+                errorMsg.Text = "Backup restaurado con éxito: " + backupFile.FileName;
+                errorMsg.ForeColor = System.Drawing.Color.Green;
+            }
+            catch (Exception)
+            {
+                errorMsg.Text = "Error al realizar la restauración de la base de datos";
+                errorMsg.ForeColor = System.Drawing.Color.Red;
+            }
+            finally
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+            }
+        }
+
+        protected void backupButton_OnClick(object sender, EventArgs e)
+        {
+            var path = Server.MapPath("~/Recover/");
+            try
+            {
+                var filename = _respaldoBL.RealizarBackup(path);
+                
+                if (!File.Exists(filename)) return;
+                
+                Response.Clear();
+                Response.ClearContent();
+                Response.ClearHeaders();
+                    
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(filename));
+                Response.ContentType = "application/octet-stream";
+                    
+                Response.WriteFile(filename, readIntoMemory: true);
+
+                if (File.Exists(filename))
+                {
+                    File.Delete(filename);
+                }
+
+                Response.End();
+            }
+            catch (Exception)
+            {
+                errorMsg.Text = "Error al realizar el backup de la base de datos";
+                errorMsg.ForeColor = System.Drawing.Color.Red;
+            }
         }
     }
 }
