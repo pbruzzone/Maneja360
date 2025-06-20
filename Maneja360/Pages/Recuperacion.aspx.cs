@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Web.Security;
@@ -77,12 +78,12 @@ namespace Maneja360.Pages
                 backupFile.SaveAs(path);
                 _respaldoBL.RealizarRestore(path);
                 errorMsg.Text = "Backup restaurado con éxito: " + backupFile.FileName;
-                errorMsg.ForeColor = System.Drawing.Color.Green;
+                errorMsg.ForeColor = Color.Green;
             }
             catch (Exception)
             {
                 errorMsg.Text = "Error al realizar la restauración de la base de datos";
-                errorMsg.ForeColor = System.Drawing.Color.Red;
+                errorMsg.ForeColor = Color.Red;
             }
             finally
             {
