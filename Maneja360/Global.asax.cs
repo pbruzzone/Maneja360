@@ -4,6 +4,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.UI;
 using DAL;
 
 namespace Maneja360
@@ -15,7 +16,20 @@ namespace Maneja360
         void Application_Start(object sender, EventArgs e)
         {
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // Registrar el ScriptResourceMapping para jQuery
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "jquery",
+                new ScriptResourceDefinition
+                {
+                    Path = "~/Scripts/jquery-3.7.1.min.js", // Ruta al archivo jQuery en tu proyecto
+                    DebugPath = "~/Scripts/jquery-3.7.1.js", // Ruta al archivo de depuración
+                    CdnPath = "https://code.jquery.com/jquery-3.7.1.min.js", // Ruta CDN opcional
+                    CdnDebugPath = "https://code.jquery.com/jquery-3.7.1.js", // Ruta CDN de depuración opcional
+                    CdnSupportsSecureConnection = true
+                });
+
             DAO.EnsureDatabaseExists();
         }
 
