@@ -95,7 +95,7 @@ namespace BLL
             return (result, errorsGrouped);
         }
 
-        private DV GenerarDVTabla(DataTable dt)
+        private static DV GenerarDVTabla(DataTable dt)
         {
             var hash = GenerarHashTabla(dt);
 
@@ -104,14 +104,14 @@ namespace BLL
 
         private static long[][] GenerarHashTabla(DataTable dt)
         {
-            long[][] hash = new long[dt.Rows.Count][];
+            var hash = new long[dt.Rows.Count][];
 
-            for(int i = 0; i < dt.Rows.Count; i++)
+            for(var i = 0; i < dt.Rows.Count; i++)
             {
                 var row = dt.Rows[i];
                 hash[i] = new long[row.ItemArray.Length];
 
-                for (int j = 0; j < row.ItemArray.Length; j++)
+                for (var j = 0; j < row.ItemArray.Length; j++)
                 {
                     var item = row.ItemArray[j];
                     var dv = GenerarDV(item.ToString());
@@ -125,14 +125,13 @@ namespace BLL
         private static long GenerarDV(string texto)
         {
             long sum = 0;
-            byte[] bytes = Encoding.UTF8.GetBytes(texto);
+            var bytes = Encoding.UTF8.GetBytes(texto);
 
-            int pos = 0;
-            foreach (byte b in bytes)
+            for (var i = 0; i < bytes.Length; i++)
             {
-                pos++;
-                sum += b * pos;
+                sum += bytes[i] * (i + 1);
             }
+
             return sum;
         }
     }
