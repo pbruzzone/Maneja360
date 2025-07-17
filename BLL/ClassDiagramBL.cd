@@ -3,7 +3,7 @@
   <Class Name="BLL.BitacoraEventoBL">
     <Position X="3.75" Y="0.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAAAAAAAACAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAEAAAAAAAAAACAAAAAAAAAACAAAABAAAAAA=</HashCode>
       <FileName>BitacoraEventoBL.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -19,6 +19,20 @@
     <TypeIdentifier>
       <HashCode>AAZAAAIAAEQAAEAAAAAECAgAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>UsuarioBL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.DVBL">
+    <Position X="6.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAgEAAAAAAQAAAAACAAAAAAgAAAAAAAACAAAAAA=</HashCode>
+      <FileName>DVBL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.RespaldoBL">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAEAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>RespaldoBL.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
